@@ -1,0 +1,81 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+.gameboard-player1, .gameboard-player2{
+    width: 30rem;
+    display: flex;
+    flex-wrap: wrap;
+    background: radial-gradient(circle, rgba(100, 153, 184, 0.363) 15%, rgba(112, 205, 241, 0.50) 60%, rgba(112, 205, 241, 0.60) 85%, rgba(255, 255, 255, 0.75) 100%)
+}
+
+.gameboard-container {
+    width: 40rem;
+    height: 40rem;
+    display: flex;
+    background-color: rgba(0, 0, 0, 0.75);
+    align-items: center;
+    justify-content: center;
+    border-radius: 20px;
+}
+
+.log-container {
+    width: 30rem;
+    height: 5rem;
+    background-color: rgba(0, 0, 0, 0.75);
+    align-items: center;
+    justify-content: center;
+    border-radius: 20px;
+    color: white;
+    font-size: larger;
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+    align-self: start;
+}
+
+.miss {
+    color: white;
+}
+
+.hit {
+    color: red;
+}
+
+h1 {
+    color: white;
+    position: fixed;
+    align-self: start;
+}
+
+.game-container {
+    width: 100vw;
+    height: 100vh;
+    justify-items: center;
+    align-items: center;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    background: url(./img/Designer\(2\).jpeg);
+    background-size: cover;
+}
+
+.cell {
+    width: 3rem;
+    height: 3rem;
+    border: 1px solid black;
+    justify-content: center;
+    align-items: center;
+    user-select: none;
+    cursor: pointer;
+    display: flex;
+}
+
+.gameboard-player2 > .cell:hover {
+    background-color: rgba(255, 255, 255, 0.5);
+}
+
+.disable {
+    pointer-events: none;
+}
