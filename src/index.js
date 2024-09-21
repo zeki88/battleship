@@ -1,4 +1,4 @@
-//import { start } from "./dom.js";
-import gameboard from "./controller.js";
-//start();
-gameboard();
+import { startScreen } from "./startScreen.js";
+import * as css from "./style.css";
+
+startScreen();

@@ -17,11 +17,6 @@ export default function gameboard() {
                 ship.position.splice(ship.position.findIndex(pos => pos.x === x && pos.y === y), 1);
                 successfulShot.push({ x, y });
                 board[y][x] = 'X';
-                if (endGame()) console.log('You win!');
-
-                if (ship.sunk) {
-                    console.log(`${ship.name} has been sunk!`);
-                }
             }
             return ship;
         }
@@ -66,7 +61,8 @@ export default function gameboard() {
     }
 
     function endGame() {
-        return ships.every(ship => ship.sunk);
+        const state = ships.every(ship => ship.sunk) ?  true : false;
+        return state
     }
 
     return {
