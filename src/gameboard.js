@@ -30,6 +30,7 @@ export default function gameboard() {
                 throw new Error('Ship already placed');
             }
         }
+        return true;
     }
 
     function placeShipOnBoard(ship, x, y, orientation) {
@@ -44,13 +45,16 @@ export default function gameboard() {
     function placeShip(ship, orientation, x, y) {
         if (x < 0 || y < 0 || (orientation === 'horizontal' && x + ship.length > 10) ||
             (orientation === 'vertical' && y + ship.length > 10)) {
-            throw new Error('Invalid coordinates');
+                throw new Error('Invalid coordinates');
         }
 
-        isValidPosition(ship, x, y, orientation);
-        placeShipOnBoard(ship, x, y, orientation);
-
-        ships.push(ship);
+        if(isValidPosition(ship, x, y, orientation)) {
+            placeShipOnBoard(ship, x, y, orientation)
+            ships.push(ship);
+            return true;
+        } else {
+            return false;
+        }
     }
 
     function printBoard() {

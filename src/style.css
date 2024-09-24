@@ -8,24 +8,47 @@
     width: 30rem;
     display: grid;
     grid-template-columns: repeat(10, 1fr);
-    background-color: white;
+    background-color: rgba(255, 255, 255, 0.74);
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+    position: relative;
 }
 
 .gameboard-container {
     width: 40rem;
     height: 40rem;
-    display: grid;
-    background-color: rgba(0, 0, 0, 0.75);
+    display: flex;
+    flex-direction: column;
     align-items: center;
     justify-content: center;
     border-radius: 20px;
-    grid-template-rows: 3rem;
 }
 
-.log-container {
-    width: 30rem;
-    height: 5rem;
+.gameboard-container > .active {
+    background-color: #6cb18a;
+    box-shadow: 0 0 10px rgba(20, 168, 82, 0.63);
+}
+
+#button-horizontal, #button-vertical, #button-start {
+  position: absolute;
+  display: flex;
+  justify-content: center;
+  width: 14rem;
+}
+
+.ships-container {
+  width: 9rem;
+  height: 40rem;
+  display: flex;
+  background-color: rgba(0, 0, 0, 0.75);
+  align-items: center;
+  justify-content: center;
+  border-radius: 20px;
+  flex-direction: column;
+}
+
+.ship-card {
+    width: 8rem;
+    height: 7.5rem;
     background-color: rgba(10, 72, 122, 0.8);
     align-items: center;
     justify-content: center;
@@ -37,6 +60,27 @@
     gap: 2rem;
     align-self: start;
     box-shadow: inset 0 0 50px rgba(0, 0, 0, 0.5);
+    margin: auto;
+}
+
+.ship-img {
+  max-width: 100%;
+  max-height: 50%;
+}
+
+.log-container {
+    width: 30rem;
+    height: 5rem;
+    background-color: rgba(10, 72, 122, 0.8);
+    align-items: center;
+    justify-content: center;
+    border-radius: 20px;
+    color: white;
+    font-size: larger;
+    flex-direction: column;
+    gap: 2rem;
+    box-shadow: inset 0 0 50px rgba(0, 0, 0, 0.5);
+    display: none;
 }
 
 .miss {
@@ -56,11 +100,19 @@ h1 {
 .game-container {
     width: 100vw;
     height: 100vh;
-    justify-items: center;
+    justify-content: center;
     align-items: center;
-    display: grid;
+    display: flex;
     background: url(./img/Designer\(2\).jpeg);
     background-size: cover;
+}
+
+.board-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem;
 }
 
 .end-screen {
@@ -215,6 +267,10 @@ input {
     font-size: 2rem;
     color: white;
     font-weight: bold;
+    display: none;
+    text-shadow: #008CBA 0 0 5px;
+    position: absolute;
+    top: 5%;
   }
 
   .text-end {

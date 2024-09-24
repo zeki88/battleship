@@ -1,54 +1,86 @@
-import { create } from './domHelpers.js';
+import { create, createBtn } from './domHelpers.js';
+//import { carrier } from './img/carrier.svg';
 
-export function elements(name) {
-    const gameContainer = document.querySelector('.game-container');
-    const gameboardContainer1 = create('div', 'gameboard-container', gameContainer);
+const carrier = new Image('./img/carrier.svg');
+
+const gameContainer = document.querySelector('.game-container');
+export function elementsPlayer(name) {
+    const boardContainer = create('div', 'board-container', gameContainer);
+    const gameboardContainer1 = create('div', 'gameboard-container', boardContainer);
     gameboardContainer1.classList.add('box');
     const span1 = create('span', 'player', gameboardContainer1);
-    span1.innerHTML = 'CPU';
+    span1.innerHTML = `${name}'s waters`;
     const i1 = create('i', 'water-container', gameboardContainer1);
-    const gameboardContainer2 = create('div', 'gameboard-container', gameContainer);
-    gameboardContainer2.classList.add('box');
-    const span2 = create('span', 'player', gameboardContainer2);
-    span2.innerHTML = `${name}`;
-    const i2 = create('i', 'water-container', gameboardContainer2);
-    const logContainer1 = create('div', 'log-container', gameContainer);
-    const logContainer2 = create('div', 'log-container', gameContainer);
     const divGameboard1 = create('div', 'gameboard-player1', gameboardContainer1);
-    const divGameboard2 = create('div', 'gameboard-player2', gameboardContainer2);
+    const logContainer1 = create('div', 'log-container', boardContainer);
+    logContainer1.innerHTML = '<p>Your log</p><p class=" CPU"></p>';
 
-    logContainer1.innerHTML = '<p>Log CPU</p><p class=" CPU"></p>';
-    logContainer2.innerHTML = '<p>Log Player</p><p class=" P1"></p>';
+
+    
+    
+
 
     function createCells() {
         for (let i = 0; i < 10; i++) {
             for (let j = 0; j < 10; j++) {
-                const cell1 = document.createElement('div');
-                cell1.classList.add('cell');
+                const cell1 = create('div', 'cell', divGameboard1);
                 cell1.dataset.x = j;
                 cell1.dataset.y = i;
-                divGameboard1.appendChild(cell1);
-    
-                const cell2 = document.createElement('div');
-                cell2.classList.add('cell');
+            }
+        }
+    }
+
+    createCells();
+    shipsSelector()
+
+    return {
+        divGameboard1,
+    }
+}
+
+function shipsSelector() {
+    const shipsContainer = create('div', 'ships-container', gameContainer);
+
+    const shipsData = [
+        { length: 2, name: 'Destroyer', symbol: 'D' },
+        { length: 3, name: 'Submarine', symbol: 'S' },
+        { length: 3, name: 'Cruiser', symbol: 'C' },
+        { length: 4, name: 'Battleship', symbol: 'B' },
+        { length: 5, name: 'Carrier', symbol: 'A' },
+    ];
+
+    shipsData.forEach(ship => {
+        const shipCard = create('div', 'ship-card', shipsContainer);
+        const shipName = create('p', 'ship-name', shipCard);
+        shipName.innerHTML = ship.name;
+        const shipImg = create('img', 'ship-img', shipCard);
+        shipImg.src = `./img/${ship.name}.svg`;
+        shipImg.setAttribute('id', `${ship.name}` );
+})
+}
+export function elementsCPU() {
+    const boardContainer = create('div', 'board-container', gameContainer);
+    const gameboardContainer2 = create('div', 'gameboard-container', boardContainer);
+    gameboardContainer2.classList.add('box');
+    const span2 = create('span', 'player', gameboardContainer2);
+    span2.innerHTML = `Enemy waters`;
+    const i2 = create('i', 'water-container', gameboardContainer2);
+    const logContainer2 = create('div', 'log-container', boardContainer);
+    const divGameboard2 = create('div', 'gameboard-player2', gameboardContainer2);
+    logContainer2.innerHTML = '<p>Enemy log</p><p class=" P1"></p>';
+
+    function createCells() {
+        for (let i = 0; i < 10; i++) {
+            for (let j = 0; j < 10; j++) { 
+                const cell2 = create('div', 'cell', divGameboard2);
                 cell2.dataset.x = j;
                 cell2.dataset.y = i;
-                divGameboard2.appendChild(cell2);
             }
         }
     }
 
     createCells();
 
-    const cells = Array.from(divGameboard1.querySelectorAll('.cell'));
-
-    return {
-        divGameboard1,
-        divGameboard2,
-        logContainer1,
-        logContainer2,
-        cells,
-    }
 }
 
 function typeWriter(text, element, speed = 45) {

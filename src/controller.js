@@ -1,35 +1,16 @@
-import player1 from './player.js';
-import ship from './ship.js';
-import { hitMessage, missMessage, sunkMessage, elements } from './dom.js';
+import { hitMessage, missMessage, sunkMessage } from './dom.js';
 import { endScreen } from './endScreen.js';
+export function handleBoard(player1, player2) {
 
-export function initializeBoard(name) {
-    const newPlayer1 = player1(name);
-    const newPlayer2 = player1('CPU');
-    
-    const shipsData = [
-        { length: 2, name: 'Destroyer', symbol: 'D' },
-        { length: 3, name: 'Submarine', symbol: 'S' },
-        { length: 3, name: 'Cruiser', symbol: 'C' },
-        { length: 4, name: 'Battleship', symbol: 'B' },
-        { length: 5, name: 'Carrier', symbol: 'A' },
-    ];
-    initializePlayerBoard(newPlayer1, shipsData);
-    initializePlayerBoard(newPlayer2, shipsData);
-    //newPlayer2.playerBoard.placeShip(ship(5, 'Carrier', 'A'), 'vertical', 0, 0);
-    return { newPlayer1, newPlayer2, shipsData };
-}
-export function handleBoard(board, player1, player2) {
-
-    const gameBoard = board;
+    const divGameboard2 = document.querySelector('.gameboard-player2');
     const newPlayer1 = player1;
     const newPlayer2 = player2;
     function addListener() {
-        gameBoard.divGameboard2.addEventListener('click', handlePlayerMove);
+        divGameboard2.addEventListener('click', handlePlayerMove);
     }
     
     function removeListener() {
-        gameBoard.divGameboard2.removeEventListener('click', handlePlayerMove);
+        divGameboard2.removeEventListener('click', handlePlayerMove);
     }
 
     removeListener();
@@ -82,8 +63,8 @@ export function handleBoard(board, player1, player2) {
     
        
     function cpu() {
-        const arrayCells = gameBoard.cells ;
-        console.log(gameBoard)
+        const divGameboard1 = document.querySelector('.gameboard-player1');
+        const arrayCells = Array.from(divGameboard1.querySelectorAll('.cell'));
     
         function randomAttack() {
             const cell = arrayCells[Math.floor(Math.random() * arrayCells.length)];
@@ -137,10 +118,9 @@ export function handleBoard(board, player1, player2) {
         async function attack(cell, x, y) {
             await delay(1500);
             const targetCell = newPlayer1.playerBoard.receiveAttack(x, y);
-            
-            console.log(x, y)
-            
+                      
             if (targetCell !== 'M') {
+                console.log(targetCell)
                 targetCell.sunk === true ? sunkMessage(targetCell, newPlayer1) : hitMessage(newPlayer1);
             }
             
@@ -175,23 +155,4 @@ export function handleBoard(board, player1, player2) {
     }
 
     return { addListener, removeListener };
-}
-
-function initializePlayerBoard(player, ships) {
-    ships.forEach(({ length, name, symbol }) => {
-        let shipPlaced = false;
-            
-        while (!shipPlaced) {
-            const orientation = Math.random() > 0.5 ? 'horizontal' : 'vertical';
-            const x = Math.floor(Math.random() * 10);
-            const y = Math.floor(Math.random() * 10);
-    
-            try {
-                player.playerBoard.placeShip(ship(length, name, symbol), orientation, x, y);
-                shipPlaced = true;
-            } catch (error) {
-                console.log(`Error placing ${name}: ${error.message}. Retrying...`);
-            }
-        }
-    });
 }
