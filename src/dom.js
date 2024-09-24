@@ -1,5 +1,4 @@
 import { create, createBtn } from './domHelpers.js';
-//import { carrier } from './img/carrier.svg';
 
 const carrier = new Image('./img/carrier.svg');
 

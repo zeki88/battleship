@@ -23,8 +23,6 @@ function start() {
         }
 
         elementsPlayer(name);
-        //const players = initializeBoard(name);
-        //handleBoard(element, players.newPlayer1, players.newPlayer2);
         document.querySelector('.start-container').remove();
         initializeBoard(name);
 }
