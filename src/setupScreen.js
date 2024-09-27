@@ -18,6 +18,12 @@ export function initializeBoard(name) {
     return player;
 }
 
+function isMobileDevice() {
+    return /Mobi|Android|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+  }
+  
+const device = isMobileDevice() ? 'mobile' : 'desktop';
+
 function initializeCPUBoard(player, ships) {
     const playerBoard = player.playerBoard;
     
@@ -61,17 +67,17 @@ export function initializePlayerBoard(player, shipsData) {
     
     ships.forEach(ship => {
         const shipImg = document.getElementById(ship.name);
-        shipImg.addEventListener('dragstart', (e) => {
+        shipImg.addEventListener(device === 'mobile' ? 'touchstart' : 'dragstart', (e) => {
             const shipData = JSON.stringify(ship);
             e.dataTransfer.setData('application/json', shipData);
         });
     });
     
-    playerGameboard.addEventListener('dragover', (event) => {
+    playerGameboard.addEventListener(device === 'mobile' ? 'touchmove' : 'dragover', (event) => {
         event.preventDefault();
     });
     
-    playerGameboard.addEventListener('drop', (event) => {
+    playerGameboard.addEventListener(device === 'mobile' ? 'touchend' : 'drop', (event) => {
         event.preventDefault();
     
         const data = event.dataTransfer.getData('application/json')

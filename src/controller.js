@@ -120,8 +120,10 @@ export function handleBoard(player1, player2) {
             const targetCell = newPlayer1.playerBoard.receiveAttack(x, y);
                       
             if (targetCell !== 'M') {
-                console.log(targetCell)
-                targetCell.sunk === true ? sunkMessage(targetCell, newPlayer1) : hitMessage(newPlayer1);
+                if (newPlayer1.playerBoard.endGame() === true) {
+                    endScreen('win', newPlayer1);
+                } else {
+                targetCell.sunk === true ? sunkMessage(targetCell, newPlayer1) : hitMessage(newPlayer1);}
             }
             
             const result = targetCell === 'M' ? 'M' : 'X';
