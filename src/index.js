@@ -1,4 +1,4 @@
-import { startScreen } from "./startScreen.js";
-import * as css from "./style.css";
+import { startScreen } from "../src/modules/screens/startScreen.js";
+//import * as css from "./style.css";
 
 startScreen();
