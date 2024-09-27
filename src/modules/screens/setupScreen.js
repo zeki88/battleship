@@ -3,6 +3,8 @@ import player1 from '../factories/player.js';
 import ship from '../factories/ship.js';
 import { gameScreen } from './gameScreen.js';
 
+let shipDataMobile = null;
+
 export function initializeBoard(name) {
     const player = player1(name);
     
@@ -69,7 +71,11 @@ export function initializePlayerBoard(player, shipsData) {
         const shipImg = document.getElementById(ship.name);
         shipImg.addEventListener(device === 'mobile' ? 'touchstart' : 'dragstart', (e) => {
             const shipData = JSON.stringify(ship);
-            e.dataTransfer.setData('application/json', shipData);
+            if (device === 'mobile') {
+                shipDataMobile = shipData;
+            } else {
+                e.dataTransfer.setData('application/json', shipData);
+            }
         });
     });
     
@@ -79,9 +85,15 @@ export function initializePlayerBoard(player, shipsData) {
     
     playerGameboard.addEventListener(device === 'mobile' ? 'touchend' : 'drop', (event) => {
         event.preventDefault();
+
+        let shipData;
+        if (device === 'mobile') {
+            shipData = shipDataMobile;
+        } else {
+            shipData = event.dataTransfer.getData('application/json')
+        }
     
-        const data = event.dataTransfer.getData('application/json')
-        const shipObject = JSON.parse(data);
+        const shipObject = JSON.parse(shipData);
         const shipImg = document.getElementById(shipObject.name);
         const cell = event.target;
         const x = Number(cell.getAttribute('data-x'));
