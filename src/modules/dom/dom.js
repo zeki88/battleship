@@ -1,4 +1,9 @@
 import { create } from './domHelpers.js';
+import destroyer from '../../assets/img/Destroyer.svg';
+import cruiser from '../../assets/img/Cruiser.svg';
+import submarine from '../../assets/img/Submarine.svg';
+import battleship from '../../assets/img/Battleship.svg';
+import carrier from '../../assets/img/Carrier.svg';
 
 const gameContainer = document.querySelector('.game-container');
 export function elementsPlayer(name) {
@@ -51,9 +56,26 @@ function shipsSelector() {
         const shipName = create('p', 'ship-name', shipCard);
         shipName.innerHTML = ship.name;
         const shipImg = create('img', 'ship-img', shipCard);
-        shipImg.src = `../src/assets/img/${ship.name}.svg`;
+        shipImg.src = getImgSrc(ship.name);
         shipImg.setAttribute('id', `${ship.name}` );
 })
+}
+
+function getImgSrc(shipName) {
+    switch (shipName) {
+        case 'Destroyer':
+            return destroyer;
+        case 'Submarine':
+            return submarine;
+        case 'Cruiser':
+            return cruiser;
+        case 'Battleship':
+            return battleship;
+        case 'Carrier':
+            return carrier;
+        default:
+            return '';
+    }
 }
 export function elementsCPU() {
     const boardContainer = create('div', 'board-container', gameContainer);

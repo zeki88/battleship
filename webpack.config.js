@@ -8,6 +8,7 @@ module.exports = {
         path: path.resolve(__dirname, 'dist'), // Carpeta de salida
     },
     mode: 'development', // Modo de desarrollo
+    watch: true,
     plugins: [
         new HtmlWebpackPlugin({
             template: './src/index.html', // Plantilla HTML
@@ -21,7 +22,7 @@ module.exports = {
                 use: ['style-loader', 'css-loader'], // Los loaders a usar
             },
             {
-                test: /\.(png|svg|jpg|jpeg|gif)$/i, // Para archivos de imagen
+                test: /\.(png|svg|jpg|jpeg|gif|svg)$/i, // Para archivos de imagen
                 type: 'asset/resource', // Manejo de archivos
             },
             {

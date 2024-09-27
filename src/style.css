@@ -279,11 +279,3 @@ input {
     font-weight: bold;
     text-shadow: #008CBA 0 0 5px;
   }
-
-  .ships {
-    background: url(../src/assets/img/Battleship.svg);
-    background: url(../src/assets/img/Carrier.svg);
-    background: url(../src/assets/img/Cruiser.svg);
-    background: url(../src/assets/img/Destroyer.svg);
-    background: url(../src/assets/img/Submarine.svg);
-  }
